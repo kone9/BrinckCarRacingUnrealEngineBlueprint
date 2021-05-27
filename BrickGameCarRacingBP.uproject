@@ -11,6 +11,10 @@
 		{
 			"Name": "EditorScriptingUtilities",
 			"Enabled": true
+		},
+		{
+			"Name": "Takes",
+			"Enabled": true
 		}
 	]
 }

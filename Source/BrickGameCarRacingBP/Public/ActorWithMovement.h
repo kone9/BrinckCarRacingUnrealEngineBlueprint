@@ -36,9 +36,7 @@ public:
 	float velocidadDesdeCpp;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float tiempoPorSegundoDesdeCpp;
-
-	
+	float tiempoPorSegundoDesdeCpp;	
 
 	UFUNCTION(BlueprintCallable)
 	void MoverDesdeCPP();

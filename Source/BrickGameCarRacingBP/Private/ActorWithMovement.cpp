@@ -22,15 +22,17 @@ void AActorWithMovement::BeginPlay()
 void AActorWithMovement::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	velocidadDesdeCpp = velocidadDesdeCpp + GetActorLocation().X * DeltaTime;
+	velocidadDesdeCpp = velocidadDesdeCpp * DeltaTime;//ojo se modifica desde blueprint el valor desde Cpp
 	
-	AddActorWorldOffset( FVector( 0 ,velocidadDesdeCpp * DeltaTime, 0 ) );
+	AddActorWorldOffset( FVector( 0 ,velocidadDesdeCpp, 0 ) );
 	
 	// SetActorLocation(FVector(GetActorLocation().X, velocidadDesdeCpp, GetActorLocation().Z));
-	/*if (GetActorLocation().Y > cuandoLlegaHastaCpp.Y)
+	if (GetActorLocation().Y > cuandoLlegaHastaCpp.Y)
 	{
+		posicionDeReinicioDesdeCpp.X = GetActorLocation().X;
+		posicionDeReinicioDesdeCpp.Z = GetActorLocation().Z;
 		SetActorLocation(posicionDeReinicioDesdeCpp);
-	}*/
+	}
 }
 
 void AActorWithMovement::MoverDesdeCPP()

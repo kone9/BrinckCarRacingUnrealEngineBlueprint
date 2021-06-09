@@ -2,6 +2,7 @@
 
 
 #include "ActorWithMovement.h"
+#include "Components/ArrowComponent.h"
 
 // Sets default values
 AActorWithMovement::AActorWithMovement()
@@ -23,7 +24,7 @@ void AActorWithMovement::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	velocidadDesdeCpp = velocidadDesdeCpp * DeltaTime;//ojo se modifica desde blueprint el valor desde Cpp
+	// velocidadDesdeCpp = velocidadDesdeCpp * DeltaTime;//ojo se modifica desde blueprint el valor desde Cpp
 	// UE_LOG(LogTemp, Warning, TEXT("la velocidad es %f"), velocidadDesdeCpp);
 	
 	// UE_LOG(LogTemp, Display, TEXT("Your message"));// UE_LOG(LogTemp, Warning, TEXT("Your message"));
@@ -36,18 +37,23 @@ void AActorWithMovement::Tick(float DeltaTime)
 	{
 		AddActorWorldOffset( FVector( 0 ,velocidadDesdeCpp, 0 ) );
 		GEngine->AddOnScreenDebugMessage(0, 0.f, FColor::Red, FString::Printf(TEXT("la posicion es: X= %f  Y= %f  Z= %f "),GetActorLocation().X, GetActorLocation().Y,GetActorLocation().Z));
-	
 	}
 	else
 	{
+		UArrowComponent* componentFlechaOtraColumna = Cast<UArrowComponent> ( refSueloPruebaDesdeCpp->GetComponentsByTag(UArrowComponent::StaticClass(), TEXT("ArrowPosicionfinal"))[0] );
+		
 		posicionDeReinicioDesdeCpp.X = GetActorLocation().X;
-		posicionDeReinicioDesdeCpp.Y = posicionDeOtraPlataforma.Y;
+		posicionDeReinicioDesdeCpp.Y = posicionDeReinicioDesdeCpp.Y;
 		posicionDeReinicioDesdeCpp.Z = GetActorLocation().Z;
+		// posicionDeReinicioDesdeCpp.Y = posicionDeOtraPlataforma.Y;
+		// posicionDeReinicioDesdeCpp.Y = componentFlechaOtraColumna->GetComponentTransform().GetLocation().Y;
 
 		SetActorLocation(posicionDeReinicioDesdeCpp);
 		
 		UE_LOG(LogTemp, Warning, TEXT("REINICIO posicion YO es: Y= %f"), GetActorLocation().Y);
-		UE_LOG(LogTemp, Warning, TEXT("REINICIO posicion OTRO es: Y= %f"), posicionDeOtraPlataforma.Y);
+		// UE_LOG(LogTemp, Warning, TEXT("REINICIO posicion OTRO es: Y= %f"), posicionDeOtraPlataforma.Y);
+		UE_LOG(LogTemp, Warning, TEXT("REINICIO posicion OTRO es: Y= %f"), componentFlechaOtraColumna->GetComponentTransform().GetLocation().Y);
+		// UE_LOG(LogTemp, Warning, TEXT("REINICIO posicion OTRO es: Y= %f"), posicionDeReinicioDesdeCpp.Y);
 	
 	}
 

@@ -41,6 +41,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float tiempoPorSegundoDesdeCpp;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	AActor* refSueloPruebaDesdeCpp;
+
 	UFUNCTION(BlueprintCallable)
 	void MoverDesdeCPP();
 

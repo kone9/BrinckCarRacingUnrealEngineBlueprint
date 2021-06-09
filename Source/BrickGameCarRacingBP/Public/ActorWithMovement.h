@@ -27,6 +27,9 @@ public:
 	FVector posicionDeReinicioDesdeCpp = FVector(0,500,0);
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FVector posicionDeOtraPlataforma = FVector(0,0,0);
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FVector movimientoDesdeCpp;
 
 	UPROPERTY(EditAnywhere)
@@ -36,7 +39,7 @@ public:
 	float velocidadDesdeCpp;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float tiempoPorSegundoDesdeCpp;	
+	float tiempoPorSegundoDesdeCpp;
 
 	UFUNCTION(BlueprintCallable)
 	void MoverDesdeCPP();

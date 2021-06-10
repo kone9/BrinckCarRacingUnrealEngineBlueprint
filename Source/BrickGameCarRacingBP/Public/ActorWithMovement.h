@@ -47,4 +47,19 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void MoverDesdeCPP();
 
+protected:
+	FTimerHandle MovePlatform;
+	FTimerHandle ReloadPlatform;
+	
+	void Move();
+	
+	void Reload();
+	
+	UPROPERTY(EditAnywhere)
+	float delayTimeMove = 1;//tiempo para mover
+	
+	UPROPERTY(EditAnywhere)
+	float delayTimeReload = 1;//tiempo para reiniciar
+	
+
 };

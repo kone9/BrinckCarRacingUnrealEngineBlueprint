@@ -3,6 +3,8 @@
 
 #include "ActorWithMovement.h"
 #include "Components/ArrowComponent.h"
+#include "Engine/World.h"
+#include "TimerManager.h"
 
 // Sets default values
 AActorWithMovement::AActorWithMovement()
@@ -16,23 +18,52 @@ AActorWithMovement::AActorWithMovement()
 void AActorWithMovement::BeginPlay()
 {
 	Super::BeginPlay();
-	
-}
 
+	// GetWorld()->GetTimerManager().SetTimer(MovePlatform, this, &AActorWithMovement::Move, delayTimeMove, true);
+	GetWorldTimerManager().SetTimer(MovePlatform, this, &AActorWithMovement::Move, delayTimeMove, true);
+}
 // Called every frame
 void AActorWithMovement::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
 	// velocidadDesdeCpp = velocidadDesdeCpp * DeltaTime;//ojo se modifica desde blueprint el valor desde Cpp
-	// UE_LOG(LogTemp, Warning, TEXT("la velocidad es %f"), velocidadDesdeCpp);
-	
-	// UE_LOG(LogTemp, Display, TEXT("Your message"));// UE_LOG(LogTemp, Warning, TEXT("Your message"));
-	// UE_LOG(LogTemp, Warning, TEXT("Your message"));
-	// UE_LOG(LogTemp, Error, TEXT("Your message"));
-	// UE_LOG(LogTemp, Fatal, TEXT("Your message"));
+	// // UE_LOG(LogTemp, Warning, TEXT("la velocidad es %f"), velocidadDesdeCpp);
 
-	// SetActorLocation(FVector(GetActorLocation().X, velocidadDesdeCpp, GetActorLocation().Z));
+	// // UE_LOG(LogTemp, Display, TEXT("Your message"));// UE_LOG(LogTemp, Warning, TEXT("Your message"));
+	// // UE_LOG(LogTemp, Warning, TEXT("Your message"));
+	// // UE_LOG(LogTemp, Error, TEXT("Your message"));
+	// // UE_LOG(LogTemp, Fatal, TEXT("Your message"));
+
+	// // SetActorLocation(FVector(GetActorLocation().X, velocidadDesdeCpp, GetActorLocation().Z));
+	// AddActorWorldOffset( FVector( 0 ,velocidadDesdeCpp, 0 ) );
+	// if (GetActorLocation().Y < cuandoLlegaHastaCpp.Y)
+	// {
+	// 	GEngine->AddOnScreenDebugMessage(0, 0.f, FColor::Red, FString::Printf(TEXT("la posicion es: X= %f  Y= %f  Z= %f "),GetActorLocation().X, GetActorLocation().Y,GetActorLocation().Z));
+	// }
+	// else
+	// {
+	// 	UArrowComponent* componentFlechaOtraColumna = Cast<UArrowComponent> ( refSueloPruebaDesdeCpp->GetComponentsByTag(UArrowComponent::StaticClass(), TEXT("ArrowPosicionfinal"))[0] );
+
+	// 	posicionDeReinicioDesdeCpp.X = GetActorLocation().X;
+	// 	posicionDeReinicioDesdeCpp.Y = posicionDeReinicioDesdeCpp.Y;
+	// 	posicionDeReinicioDesdeCpp.Z = GetActorLocation().Z;
+	// 	// posicionDeReinicioDesdeCpp.Y = posicionDeOtraPlataforma.Y;
+	// 	// posicionDeReinicioDesdeCpp.Y = componentFlechaOtraColumna->GetComponentTransform().GetLocation().Y;
+
+	// 	SetActorLocation(posicionDeReinicioDesdeCpp);
+
+	// 	UE_LOG(LogTemp, Warning, TEXT("REINICIO posicion YO es: Y= %f"), GetActorLocation().Y);
+	// 	// UE_LOG(LogTemp, Warning, TEXT("REINICIO posicion OTRO es: Y= %f"), posicionDeOtraPlataforma.Y);
+	// 	UE_LOG(LogTemp, Warning, TEXT("REINICIO posicion OTRO es: Y= %f"), componentFlechaOtraColumna->GetComponentTransform().GetLocation().Y);
+	// 	// UE_LOG(LogTemp, Warning, TEXT("REINICIO posicion OTRO es: Y= %f"), posicionDeReinicioDesdeCpp.Y);
+
+	// }
+
+}
+
+void AActorWithMovement::Move()
+{
 	if (GetActorLocation().Y < cuandoLlegaHastaCpp.Y)
 	{
 		AddActorWorldOffset( FVector( 0 ,velocidadDesdeCpp, 0 ) );
@@ -41,27 +72,31 @@ void AActorWithMovement::Tick(float DeltaTime)
 	else
 	{
 		UArrowComponent* componentFlechaOtraColumna = Cast<UArrowComponent> ( refSueloPruebaDesdeCpp->GetComponentsByTag(UArrowComponent::StaticClass(), TEXT("ArrowPosicionfinal"))[0] );
-		
+
 		posicionDeReinicioDesdeCpp.X = GetActorLocation().X;
-		posicionDeReinicioDesdeCpp.Y = posicionDeReinicioDesdeCpp.Y;
+		posicionDeReinicioDesdeCpp.Y = posicionDeReinicioDesdeCpp.Y + velocidadDesdeCpp;
 		posicionDeReinicioDesdeCpp.Z = GetActorLocation().Z;
 		// posicionDeReinicioDesdeCpp.Y = posicionDeOtraPlataforma.Y;
 		// posicionDeReinicioDesdeCpp.Y = componentFlechaOtraColumna->GetComponentTransform().GetLocation().Y;
 
 		SetActorLocation(posicionDeReinicioDesdeCpp);
-		
+
 		UE_LOG(LogTemp, Warning, TEXT("REINICIO posicion YO es: Y= %f"), GetActorLocation().Y);
 		// UE_LOG(LogTemp, Warning, TEXT("REINICIO posicion OTRO es: Y= %f"), posicionDeOtraPlataforma.Y);
 		UE_LOG(LogTemp, Warning, TEXT("REINICIO posicion OTRO es: Y= %f"), componentFlechaOtraColumna->GetComponentTransform().GetLocation().Y);
 		// UE_LOG(LogTemp, Warning, TEXT("REINICIO posicion OTRO es: Y= %f"), posicionDeReinicioDesdeCpp.Y);
-	
-	}
 
+	}
+}
+
+void AActorWithMovement::Reload()
+{
+	
 }
 
 void AActorWithMovement::MoverDesdeCPP()
 {
-	
+
 	// velocidadDesde += velocidadDesde * tiempo;
 	// // movimientoDesdeCpp.Y = velocidadDesdeCpp;
 
@@ -75,3 +110,10 @@ void AActorWithMovement::MoverDesdeCPP()
 }
 
 
+//NOTAS:
+//TRAYECTO: direccion donde se va a ir
+//DESPLAZAMIENTO: Resta de posicion final - posicion inicial
+//VELOCIDAD: relación de la distancia recorrida con respecto al tiempo esto es un vector con una dirección "Metros/s"
+//RAPIDES: distancia recorrida divide el tiempo empleado para dicha distancía. se emplean unidades de longitud y tiempo. NO ES UN VECTOR CON UNA DIRECCION "Metros/Segundos"
+//ACELERACION: cambio de velocidad en un intervalo de tiempo.. A la velocidad final siempre se resta la velocidad inicial y se divide entre el tiempo final y tiempo inicial.. (Metros/segundos)/segundos
+//DESACELERACION: Cuando cambiamos de una velocidad mayor a una menor

@@ -18,10 +18,10 @@ AActorWithMovement::AActorWithMovement()
 void AActorWithMovement::BeginPlay()
 {
 	Super::BeginPlay();
+	// GetWorldTimerManager().SetTimer(MovePlatform, this, &AActorWithMovement::Move, delayTimeMove, true);
 
-	// GetWorld()->GetTimerManager().SetTimer(MovePlatform, this, &AActorWithMovement::Move, delayTimeMove, true);
-	GetWorldTimerManager().SetTimer(MovePlatform, this, &AActorWithMovement::Move, delayTimeMove, true);
 }
+
 // Called every frame
 void AActorWithMovement::Tick(float DeltaTime)
 {
@@ -30,36 +30,38 @@ void AActorWithMovement::Tick(float DeltaTime)
 	// velocidadDesdeCpp = velocidadDesdeCpp * DeltaTime;//ojo se modifica desde blueprint el valor desde Cpp
 	// // UE_LOG(LogTemp, Warning, TEXT("la velocidad es %f"), velocidadDesdeCpp);
 
+	//varios tipos de logs Prueba
 	// // UE_LOG(LogTemp, Display, TEXT("Your message"));// UE_LOG(LogTemp, Warning, TEXT("Your message"));
 	// // UE_LOG(LogTemp, Warning, TEXT("Your message"));
 	// // UE_LOG(LogTemp, Error, TEXT("Your message"));
 	// // UE_LOG(LogTemp, Fatal, TEXT("Your message"));
 
-	// // SetActorLocation(FVector(GetActorLocation().X, velocidadDesdeCpp, GetActorLocation().Z));
-	// AddActorWorldOffset( FVector( 0 ,velocidadDesdeCpp, 0 ) );
-	// if (GetActorLocation().Y < cuandoLlegaHastaCpp.Y)
-	// {
-	// 	GEngine->AddOnScreenDebugMessage(0, 0.f, FColor::Red, FString::Printf(TEXT("la posicion es: X= %f  Y= %f  Z= %f "),GetActorLocation().X, GetActorLocation().Y,GetActorLocation().Z));
-	// }
-	// else
-	// {
-	// 	UArrowComponent* componentFlechaOtraColumna = Cast<UArrowComponent> ( refSueloPruebaDesdeCpp->GetComponentsByTag(UArrowComponent::StaticClass(), TEXT("ArrowPosicionfinal"))[0] );
+	if (GetActorLocation().Y < cuandoLlegaHastaCpp.Y - velocidadDesdeCpp)//para que funcione hay que restar a la posición la velocidad
+	{
+		AddActorWorldOffset( FVector( 0 ,velocidadDesdeCpp, 0 ) );
+		GEngine->AddOnScreenDebugMessage(0, 2.0f, FColor::Red, FString::Printf(TEXT("la posicion es: X= %f  Y= %f  Z= %f "),GetActorLocation().X, GetActorLocation().Y + 2000,GetActorLocation().Z));
+	}
+	else
+	{
+		UArrowComponent* componentFlechaOtraColumna = Cast<UArrowComponent> ( refSueloPruebaDesdeCpp->GetComponentsByTag(UArrowComponent::StaticClass(), TEXT("ArrowPosicionfinal"))[0] );
 
-	// 	posicionDeReinicioDesdeCpp.X = GetActorLocation().X;
-	// 	posicionDeReinicioDesdeCpp.Y = posicionDeReinicioDesdeCpp.Y;
-	// 	posicionDeReinicioDesdeCpp.Z = GetActorLocation().Z;
-	// 	// posicionDeReinicioDesdeCpp.Y = posicionDeOtraPlataforma.Y;
-	// 	// posicionDeReinicioDesdeCpp.Y = componentFlechaOtraColumna->GetComponentTransform().GetLocation().Y;
+		posicionDeReinicioDesdeCpp.X = GetActorLocation().X;
+		posicionDeReinicioDesdeCpp.Y = posicionDeReinicioDesdeCpp.Y;
+		posicionDeReinicioDesdeCpp.Z = GetActorLocation().Z;
+		// posicionDeReinicioDesdeCpp.Y = posicionDeOtraPlataforma.Y;
+		// posicionDeReinicioDesdeCpp.Y = componentFlechaOtraColumna->GetComponentTransform().GetLocation().Y;
 
-	// 	SetActorLocation(posicionDeReinicioDesdeCpp);
-
-	// 	UE_LOG(LogTemp, Warning, TEXT("REINICIO posicion YO es: Y= %f"), GetActorLocation().Y);
-	// 	// UE_LOG(LogTemp, Warning, TEXT("REINICIO posicion OTRO es: Y= %f"), posicionDeOtraPlataforma.Y);
-	// 	UE_LOG(LogTemp, Warning, TEXT("REINICIO posicion OTRO es: Y= %f"), componentFlechaOtraColumna->GetComponentTransform().GetLocation().Y);
-	// 	// UE_LOG(LogTemp, Warning, TEXT("REINICIO posicion OTRO es: Y= %f"), posicionDeReinicioDesdeCpp.Y);
-
-	// }
-
+		SetActorLocation(posicionDeReinicioDesdeCpp);
+		
+		float posicionActorActual = GetActorLocation().Y;
+		UE_LOG(LogTemp, Warning, TEXT("REINICIO posicion YO es: Y= %f"), posicionActorActual);
+		// UE_LOG(LogTemp, Warning, TEXT("REINICIO posicion OTRO es: Y= %f"), posicionDeOtraPlataforma.Y);
+		
+		// float posicionOtroActor = componentFlechaOtraColumna->GetComponentTransform().GetLocation().Y;
+		float posicionOtroActor = refSueloPruebaDesdeCpp->GetActorLocation().Y; 
+		UE_LOG(LogTemp, Warning, TEXT("REINICIO posicion OTRO es: Y= %f"), posicionOtroActor);
+		// UE_LOG(LogTemp, Warning, TEXT("REINICIO posicion OTRO es: Y= %f"), posicionDeReinicioDesdeCpp.Y);
+	}
 }
 
 void AActorWithMovement::Move()

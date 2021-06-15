@@ -70,6 +70,7 @@ void AActorWithMovement::Move()
 	{
 		AddActorWorldOffset( FVector( 0 ,velocidadDesdeCpp, 0 ) );
 		GEngine->AddOnScreenDebugMessage(0, 2.0f, FColor::Red, FString::Printf(TEXT("la posicion es: X= %f  Y= %f  Z= %f "),GetActorLocation().X, GetActorLocation().Y + 2000,GetActorLocation().Z));
+		
 	}
 	else
 	{

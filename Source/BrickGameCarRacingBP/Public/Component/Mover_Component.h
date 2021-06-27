@@ -7,7 +7,7 @@
 #include "Mover_Component.generated.h"
 
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class BRICKGAMECARRACINGBP_API UMover_Component : public UActorComponent
 {
 	GENERATED_BODY()
@@ -19,6 +19,8 @@ public:
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
+	
+
 
 public:	
 	// Called every frame
@@ -26,7 +28,14 @@ public:
 
 private:
 	AActor* owner = nullptr;
-	
+
+protected:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool puedoMover;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float velocidad;
 	 
 
 };

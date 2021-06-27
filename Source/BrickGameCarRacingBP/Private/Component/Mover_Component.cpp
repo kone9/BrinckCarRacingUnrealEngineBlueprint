@@ -20,7 +20,7 @@ void UMover_Component::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
-	
+	owner = GetOwner();
 }
 
 
@@ -30,5 +30,9 @@ void UMover_Component::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+	if(puedoMover == true)
+	{
+		owner->AddActorWorldOffset(FVector(0,velocidad,0));
+	}
 }
 

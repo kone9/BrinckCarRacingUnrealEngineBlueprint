@@ -29,7 +29,7 @@ public:
 private:
 	AActor* owner = nullptr;
 
-protected:
+public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool puedoMover;

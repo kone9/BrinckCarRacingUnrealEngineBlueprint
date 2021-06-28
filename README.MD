@@ -13,7 +13,7 @@
 Juego en itchio
 https://kone9.itch.io/brick-car-game-unreal-engine
 
-Video en youtube:
+Video del juego en youtube:
 https://www.youtube.com/watch?v=zsGyz1RnVNc
 
 Music by channel youtube.

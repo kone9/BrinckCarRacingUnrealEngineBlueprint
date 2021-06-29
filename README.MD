@@ -1,4 +1,4 @@
-# Proyecto crear un simple brinckGame car Racing con Unreal Engine y blueprint
+# Proyecto crear un brinckGame car Racing con Unreal Engine
 
 ## Recreación de juego con Blueprint en Unreal Engine
 ![FlappyBirdCyberPunk2021](https://github.com/kone9/BrinckCarRacingUnrealEngineBlueprint/blob/main/juegoEnGif.gif)

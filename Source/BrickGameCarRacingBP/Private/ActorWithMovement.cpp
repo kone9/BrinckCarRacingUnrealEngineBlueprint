@@ -39,7 +39,7 @@ void AActorWithMovement::Tick(float DeltaTime)
 	if (GetActorLocation().Y < cuandoLlegaHastaCpp.Y - velocidadDesdeCpp)//para que funcione hay que restar a la posición la velocidad
 	{
 		AddActorWorldOffset( FVector( 0 ,velocidadDesdeCpp, 0 ) );
-		GEngine->AddOnScreenDebugMessage(0, 2.0f, FColor::Red, FString::Printf(TEXT("la posicion es: X= %f  Y= %f  Z= %f "),GetActorLocation().X, GetActorLocation().Y + 2000,GetActorLocation().Z));
+		//GEngine->AddOnScreenDebugMessage(0, 2.0f, FColor::Red, FString::Printf(TEXT("la posicion es: X= %f  Y= %f  Z= %f "),GetActorLocation().X, GetActorLocation().Y + 2000,GetActorLocation().Z));
 	}
 	else
 	{
@@ -69,7 +69,7 @@ void AActorWithMovement::Move()
 	if (GetActorLocation().Y < cuandoLlegaHastaCpp.Y - velocidadDesdeCpp)//para que funcione hay que restar a la posición la velocidad
 	{
 		AddActorWorldOffset( FVector( 0 ,velocidadDesdeCpp, 0 ) );
-		GEngine->AddOnScreenDebugMessage(0, 2.0f, FColor::Red, FString::Printf(TEXT("la posicion es: X= %f  Y= %f  Z= %f "),GetActorLocation().X, GetActorLocation().Y + 2000,GetActorLocation().Z));
+		//GEngine->AddOnScreenDebugMessage(0, 2.0f, FColor::Red, FString::Printf(TEXT("la posicion es: X= %f  Y= %f  Z= %f "),GetActorLocation().X, GetActorLocation().Y + 2000,GetActorLocation().Z));
 		
 	}
 	else

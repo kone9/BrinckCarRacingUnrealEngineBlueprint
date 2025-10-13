@@ -2,6 +2,8 @@
 
 
 #include "Component/Mover_Component.h"
+#include "GameFramework/Actor.h"
+
 
 // Sets default values for this component's properties
 UMover_Component::UMover_Component()
@@ -32,7 +34,11 @@ void UMover_Component::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 	// ...
 	if(puedoMover == true)
 	{
-		owner->AddActorWorldOffset(FVector(0,velocidad,0));
+		if (IsValid(owner) )
+		{
+			owner->AddActorWorldOffset(FVector(0,velocidad,0));
+
+		}
 	}
 }
 
